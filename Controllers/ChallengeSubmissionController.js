@@ -1,8 +1,7 @@
-import ChallengeSubmission from "../Models/ChallangeSubmission.js";
-
+const ChallengeSubmission = require("../Models/ChallangeSubmission.js");
 
 // Fetch all hiring challenges
-export const getAllHiringChallenges = async (req, res) => {
+exports.getAllHiringChallenges = async (req, res) => {
   try {
     const hiringChallenges = await ChallengeSubmission.find().populate("submissions");
     res.status(200).json(hiringChallenges);
@@ -12,7 +11,7 @@ export const getAllHiringChallenges = async (req, res) => {
 };
 
 // Fetch a hiring challenge by ID
-export const getHiringChallengeById = async (req, res) => {
+exports.getHiringChallengeById = async (req, res) => {
   try {
     const { id } = req.params;
     const hiringChallengesById = await ChallengeSubmission.findById(id).populate("submissions");
@@ -28,7 +27,7 @@ export const getHiringChallengeById = async (req, res) => {
 };
 
 // Fetch all hiring challenges by createdBy's ID
-export const getHiringChallengesByCreator = async (req, res) => {
+exports.getHiringChallengesByCreator = async (req, res) => {
   try {
     const { creatorId } = req.params;
     const hiringChallengesByCreator = await ChallengeSubmission.find({ createdBy: creatorId }).populate("submissions");

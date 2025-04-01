@@ -1,13 +1,11 @@
-
-import express from "express";
-import { 
+const express = require("express");
+const { 
     createHiringChallenge, 
     updateHiringChallenge, 
     deleteHiringChallenge,
     getHiringChallengeBySubmissionId,
     getAllHiringChallenges,
-  } from "../Controllers/HiringChallengeController.js";
-
+} = require("../Controllers/HiringChallengeController.js");
 
 const router = express.Router();
 
@@ -17,4 +15,4 @@ router.delete("/hiring-challenges/:id", deleteHiringChallenge);
 router.get("/hiring-challenges", getAllHiringChallenges);
 router.get("/hiring-challenges/submission/:submissionId", getHiringChallengeBySubmissionId);
 
-export default router;
+module.exports = router;

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const certificationSchema = new mongoose.Schema(
   {
@@ -35,4 +35,4 @@ const certificationSchema = new mongoose.Schema(
 
 const Certification = mongoose.model("Certification", certificationSchema);
 
-export default Certification;
+module.exports = Certification;

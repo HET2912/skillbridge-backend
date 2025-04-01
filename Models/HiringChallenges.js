@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const hiringChallengeSchema = new mongoose.Schema(
   {
@@ -56,4 +56,4 @@ const hiringChallengeSchema = new mongoose.Schema(
 
 const HiringChallenge = mongoose.model("HiringChallenge", hiringChallengeSchema);
 
-export default HiringChallenge;
+module.exports = HiringChallenge;

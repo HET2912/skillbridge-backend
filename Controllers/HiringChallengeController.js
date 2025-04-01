@@ -1,7 +1,7 @@
-import HiringChallenge from "../Models/HiringChallenges.js"; // Adjust path as needed
+const HiringChallenge = require("../Models/HiringChallenges.js"); // Adjust path as needed
 
 // Create a new hiring challenge
-export const createHiringChallenge = async (req, res) => {
+exports.createHiringChallenge = async (req, res) => {
   try {
     const newChallenge = new HiringChallenge(req.body);
     const savedChallenge = await newChallenge.save();
@@ -12,7 +12,7 @@ export const createHiringChallenge = async (req, res) => {
 };
 
 // Update an existing hiring challenge by ID
-export const updateHiringChallenge = async (req, res) => {
+exports.updateHiringChallenge = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedChallenge = await HiringChallenge.findByIdAndUpdate(id, req.body, { new: true });
@@ -28,7 +28,7 @@ export const updateHiringChallenge = async (req, res) => {
 };
 
 // Delete a hiring challenge by ID
-export const deleteHiringChallenge = async (req, res) => {
+exports.deleteHiringChallenge = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedChallenge = await HiringChallenge.findByIdAndDelete(id);
@@ -44,27 +44,27 @@ export const deleteHiringChallenge = async (req, res) => {
 };
 
 // Get all hiring challenges
-export const getAllHiringChallenges = async (req, res) => {
-    try {
-      const hiringChallenges = await HiringChallenge.find().populate("submissions");
-      res.status(200).json(hiringChallenges);
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching challenges", error: error.message });
+exports.getAllHiringChallenges = async (req, res) => {
+  try {
+    const hiringChallenges = await HiringChallenge.find().populate("submissions");
+    res.status(200).json(hiringChallenges);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching challenges", error: error.message });
+  }
+};
+
+// Fetch a hiring challenge by submission ID
+exports.getHiringChallengeBySubmissionId = async (req, res) => {
+  try {
+    const { submissionId } = req.params;
+    const hiringChallengesBySubmissionId = await HiringChallenge.find({ submissions: submissionId }).populate("submissions");
+
+    if (!hiringChallengesBySubmissionId.length) {
+      return res.status(404).json({ message: "No hiring challenges found for this submission" });
     }
-  };
-//fetch a hiring by submission id
-  export const getHiringChallengeBySubmissionId = async (req, res) => {
-    try {
-      const { submissionId } = req.params;
-      const hiringChallengesBySubmissionId = await HiringChallenge.find({ submissions: submissionId }).populate("submissions");
-  
-      if (!hiringChallengesBySubmissionId.length) {
-        return res.status(404).json({ message: "No hiring challenges found for this submission" });
-      }
-  
-      res.status(200).json(hiringChallenges);
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching challenges", error: error.message });
-    }
-  };
-  
+
+    res.status(200).json(hiringChallengesBySubmissionId);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching challenges", error: error.message });
+  }
+};
